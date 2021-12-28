@@ -1,0 +1,7 @@
+# consumer auth keys
+consumer_key: 2r6tG8cfHXGuQgR2XAxRdOWkWADoDsIgy
+consumer_secret: o3TE5G8Qzg7xKrBs
+
+#URLS+++++++++++++++++++++++++
+authorization_url: https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials
+c2b_post_url: https://sandbox.safaricom.co.ke/mpesa/c2b/v1/simulate
