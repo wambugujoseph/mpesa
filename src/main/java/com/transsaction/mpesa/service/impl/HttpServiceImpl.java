@@ -3,6 +3,7 @@ package com.transsaction.mpesa.service.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.transsaction.mpesa.model.Authorized;
+import com.transsaction.mpesa.model.C2BConfirmationValidationUrl;
 import com.transsaction.mpesa.model.ConsumerComponent;
 import com.transsaction.mpesa.model.ExternalCallURL;
 import com.transsaction.mpesa.service.HttpService;
@@ -30,7 +31,7 @@ public class HttpServiceImpl implements HttpService {
     private static final Logger LOGGER = LoggerFactory.getLogger(HttpService.class);
 
     @Override
-    public Authorized getApiAuthToken() throws JsonProcessingException {
+    public Authorized getApiAuthToken() {
         HttpHeaders headers = new HttpHeaders();
         headers.setBasicAuth(consumerComponent.getAuthKey());
 
@@ -49,6 +50,47 @@ public class HttpServiceImpl implements HttpService {
             //Custom error response
             response = new ResponseEntity<>(
                     new Authorized("Invalid grant type passed OR Invalid Authentication passed"),
+                    HttpStatus.UNAUTHORIZED);
+        }
+
+        //Check for unauthorised
+        if(response.getStatusCode().is4xxClientError()){
+            LOGGER.info("Unauthorised request : caused by Invalid grant type passed OR Invalid Authentication passed");
+        }
+
+        return response.getBody();
+    }
+
+    @Override
+    public Object regC2BConfirmationValidationURl() {
+        C2BConfirmationValidationUrl confirmationValidationUrl = new C2BConfirmationValidationUrl();
+
+        HttpHeaders headers = new HttpHeaders();
+
+        //Get and allocate access_token
+        String access_token = getApiAuthToken().getAccess_token();
+        headers.setBearerAuth(access_token);
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        LOGGER.info(access_token);
+
+
+        HttpEntity request = new HttpEntity(confirmationValidationUrl, headers);
+
+
+        ResponseEntity<Object> response;
+        try {
+            LOGGER.info(request.getBody().toString());
+            response = restTemplate.postForEntity(
+                    externalCallURL.getRegConfirmationValidationUrl(),
+                    request,
+                    Object.class
+            );
+
+        } catch (RestClientException e) {
+            //Custom error response
+            e.printStackTrace();
+            response = new ResponseEntity<>(
+                    e.getMessage(),
                     HttpStatus.UNAUTHORIZED);
         }
 

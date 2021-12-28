@@ -1,6 +1,8 @@
 package com.transsaction.mpesa.model;
 
+import org.springframework.stereotype.Component;
 
+@Component
 public class Authorized {
 
     private String  access_token;

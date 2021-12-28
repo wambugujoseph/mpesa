@@ -12,7 +12,14 @@ public class ExternalCallURL {
     @Value("${authorization_url}")
     public String authorizationUrl;
 
+    @Value("${confirmation_validation_url}")
+    public String regConfirmationValidationUrl;
+
     public String getAuthorizationUrl() {
         return authorizationUrl;
+    }
+
+    public String getRegConfirmationValidationUrl() {
+        return regConfirmationValidationUrl;
     }
 }

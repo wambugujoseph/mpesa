@@ -5,3 +5,4 @@ consumer_secret: ekx8vIKIJ4EhAN1E
 #URLS+++++++++++++++++++++++++
 authorization_url: https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials
 c2b_post_url: https://sandbox.safaricom.co.ke/mpesa/c2b/v1/simulate
+confirmation_validation_url: https://sandbox.safaricom.co.ke/mpesa/c2b/v1/registerurl

@@ -7,4 +7,5 @@ import com.transsaction.mpesa.model.Authorized;
 public interface HttpService {
 
     Authorized getApiAuthToken() throws JsonProcessingException;
+    Object regC2BConfirmationValidationURl();
 }
