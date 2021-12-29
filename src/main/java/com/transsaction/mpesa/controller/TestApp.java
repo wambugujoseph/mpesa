@@ -38,12 +38,25 @@ public class TestApp {
         return new Authorized();
     }
 
-    @RequestMapping(value="/comfirmation")
+    @RequestMapping(value="/confirmation")
     public Object mpesaConfirmation(@RequestBody Object data){
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-            logger.info(mapper.writeValueAsString(data));
+            logger.info("CONFIRMATION : "+ mapper.writeValueAsString(data));
+            return data;
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return e.getMessage();
+        }
+    }
+
+    @RequestMapping(value="/validation")
+    public Object mpesaValidation(@RequestBody Object data){
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            logger.info("VALIDATION : " +mapper.writeValueAsString(data));
             return data;
         } catch (JsonProcessingException e) {
             e.printStackTrace();

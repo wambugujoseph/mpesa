@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Authorized {
 
-    private String  access_token;
+    private String access_token;
     private double expires_in;
     private String errorMessage;
 

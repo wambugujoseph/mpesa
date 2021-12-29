@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
@@ -46,6 +45,7 @@ public class HttpServiceImpl implements HttpService {
                     request,
                     Authorized.class
             );
+            LOGGER.info(response.getBody().toString());
         } catch (RestClientException e) {
             //Custom error response
             response = new ResponseEntity<>(
@@ -77,9 +77,9 @@ public class HttpServiceImpl implements HttpService {
         HttpEntity request = new HttpEntity(confirmationValidationUrl, headers);
 
 
-        ResponseEntity<Object> response;
+        ResponseEntity<Object> response = null;
         try {
-            LOGGER.info(request.getBody().toString());
+            LOGGER.info(new ObjectMapper().writeValueAsString(request.getBody()));
             response = restTemplate.postForEntity(
                     externalCallURL.getRegConfirmationValidationUrl(),
                     request,
@@ -88,10 +88,13 @@ public class HttpServiceImpl implements HttpService {
 
         } catch (RestClientException e) {
             //Custom error response
+
             e.printStackTrace();
             response = new ResponseEntity<>(
                     e.getMessage(),
                     HttpStatus.UNAUTHORIZED);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
         }
 
         //Check for unauthorised
