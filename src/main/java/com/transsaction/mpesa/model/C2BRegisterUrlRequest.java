@@ -4,17 +4,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class C2BConfirmationValidationUrl {
+public class C2BRegisterUrlRequest {
 
     @JsonProperty("ShortCode")
-    private String ShortCode = "600980";
+    private String ShortCode = "600999";
 
     @JsonProperty("ResponseType")
     private String ResponseType = "Completed";
 
     @JsonProperty("ConfirmationURL")
-    private String ConfirmationURL = "https://cryptic-tps-mps.herokuapp.com/confirmation";
+    private String ConfirmationURL;
 
     @JsonProperty("ValidationURL")
-    private String ValidationURL = "https://cryptic-tps-mps.herokuapp.com/validation";
+    private String ValidationURL;
 }
