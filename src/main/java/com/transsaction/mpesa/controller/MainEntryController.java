@@ -2,15 +2,14 @@ package com.transsaction.mpesa.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.transsaction.mpesa.model.Authorized;
-import com.transsaction.mpesa.model.C2BCustomer;
-import com.transsaction.mpesa.model.StkPushCustomer;
-import com.transsaction.mpesa.model.StkPushResponse;
+import com.transsaction.mpesa.model.*;
 import com.transsaction.mpesa.service.HttpService;
+import com.transsaction.mpesa.util.HelperUtil;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 @CrossOrigin
@@ -75,7 +74,7 @@ public class MainEntryController {
     @RequestMapping(value = "/stk/confirm")
     public Object getStkPush(@RequestBody StkPushResponse data) {
         log.info("========++++++ StkPushCallBack Processed");
-        log.info("Callback Data: " + new ObjectMapper().writeValueAsString(data));
+        log.info("Callback Data: " + HelperUtil.getObjectToJsonString(data));
         return data;
     }
 
@@ -88,4 +87,21 @@ public class MainEntryController {
         return httpService.performStkPushTransaction(stkPushCustomer);
     }
 
+    @RequestMapping(value = "/b2c_transaction_result", method = RequestMethod.POST)
+    public Object b2cTransactionResult(@RequestBody B2CSuccessResult b2CSuccessResult){
+        log.info(" ======== Processing B2C transaction result response");
+        log.info(HelperUtil.getObjectToJsonString(b2CSuccessResult));
+        return b2CSuccessResult;
+    }
+    
+    @RequestMapping(value ="/transaction_queue_timeout", method = RequestMethod.POST)
+    public Object b2cTransactionQueueTimeOut(@RequestBody Object obj){
+        log.info(String.format("%s",HelperUtil.getObjectToJsonString(obj) ));
+        return obj;
+    }
+
+    @RequestMapping(value = "b2c_transaction")
+    public Object performB2CTransaction(@RequestBody B2CTransactionRequest b2CTransactionRequest){
+        return httpService.performB2CTransaction(b2CTransactionRequest);
+    }
 }

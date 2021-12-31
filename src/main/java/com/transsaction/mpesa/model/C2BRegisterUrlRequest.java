@@ -1,16 +1,18 @@
 package com.transsaction.mpesa.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class C2BRegisterUrlRequest {
 
     @JsonProperty("ShortCode")
-    private String ShortCode = "600999";
+    private String ShortCode;
 
     @JsonProperty("ResponseType")
-    private String ResponseType = "Completed";
+    private String ResponseType;
 
     @JsonProperty("ConfirmationURL")
     private String ConfirmationURL;

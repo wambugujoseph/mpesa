@@ -8,14 +8,20 @@ c2b_post_url: https://sandbox.safaricom.co.ke/mpesa/c2b/v1/simulate
 confirmation_validation_url: https://sandbox.safaricom.co.ke/mpesa/c2b/v1/registerurl
 c2b_simulate_transaction_url: https://sandbox.safaricom.co.ke/mpesa/c2b/v1/simulate
 stkPushRequestUrl: https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest
+b2cTransactionURL: https://sandbox.safaricom.co.ke/mpesa/b2c/v1/paymentrequest
 
 #__________Custom App URLs__________________
-stkPushRequestCallBackUrl: https://1511-41-72-204-70.ngrok.io/stk/confirm
-confirmationURL: https://1511-41-72-204-70.ngrok.io/confirmation
-validationURL: https://1511-41-72-204-70.ngrok.io/validation
+stkPushRequestCallBackUrl: https://4ac3-41-72-204-70.ngrok.io/stk/confirm
+confirmationURL: https://4ac3-41-72-204-70.ngrok.io/confirmation
+validationURL: https://4ac3-41-72-204-70.ngrok.io/validation
+b2cQueueTimeOutURL: https://4ac3-41-72-204-70.ngrok.io/transaction_queue_timeout
+b2cResultURL: https://4ac3-41-72-204-70.ngrok.io/b2c_transaction_result
 
 #__________ Keys and Short Codes____________
 stkPassKey: bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919
 stkPushShortCode: 174379
-shortCode: 600988
+shortCode: 600980
 responseType: Completed
+
+b2cInitiatorName: testapi
+b2cInitiatorPassword: Safaricom978!

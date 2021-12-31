@@ -1,6 +1,8 @@
 package com.transsaction.mpesa.util;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 
 import org.apache.commons.text.CharacterPredicates;
@@ -18,6 +20,19 @@ public class HelperUtil {
         String auth_key = consumerKey +":"+consumerSecret;
         //Encode to Base64
         return toBase64String(auth_key);
+    }
+
+    public static String getObjectToJsonString(Object obj){
+        try {
+            String objJsonStr = new ObjectMapper().writeValueAsString(obj);
+            log.info(objJsonStr);
+            return objJsonStr;
+        } catch (JsonProcessingException e) {
+            String error = String.format("Failed %s to map to JSON string: %s", obj.getClass().getName(), e.getMessage());
+            //e.printStackTrace();
+            log.info(error);
+            return error;
+        }
     }
 
     public static String toBase64String(String value){
@@ -46,5 +61,16 @@ public class HelperUtil {
         log.info("Transaction Number: "+transactionNumber);
 
         return transactionNumber;
+    }
+
+    /**
+     * The Method performs encryption of the  initiatorPassword
+     * Using the OpenSSL by extracting the public key form the certificate
+     * @return initiatorPassword
+     */
+    public static String getB2CSecurityCredential(String initiatorPassword){
+        // TODO implementation of the method description
+
+        return "aolF+IzcLycZZ8Lnvl045WQJYzkB5XBWX46YJNjmPEYfGSwZKndGedt/VqkSbukXv6vR3XardPuPy1UShBrO9cJtJae0He0CNUsLkgw9yDlf+RGh+RUAE17hCXvAhPnYiKWSwFZproDfpW8vtUl4vAez/yHdKZbWY1378lXT/jvQ02q/wfNNgMfagRFUdCZZf7ub6PY5Q49WBaMsSzTXz8+5t9TYan8PuaHlJVQw77Z8zfdIEldaW4yc7li2+8YQS6une13C1wHoXCdpwa9H2cYbsBb5vOxZeI1uTzp4s0/QH73vFHq/TmXHYqyJLQmEGpb/xHDe/7N1KOs0c82wZg==";
     }
 }

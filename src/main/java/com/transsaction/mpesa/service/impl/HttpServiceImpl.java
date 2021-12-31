@@ -60,7 +60,12 @@ public class HttpServiceImpl implements HttpService {
 
     @Override
     public Object regC2BConfirmationValidationURl() {
-        C2BRegisterUrlRequest confirmationValidationUrl = new C2BRegisterUrlRequest();
+        C2BRegisterUrlRequest confirmationValidationUrl = C2BRegisterUrlRequest.builder()
+                .ShortCode(mpsConfigs.getShortCode())
+                .ResponseType(mpsConfigs.getResponseType())
+                .ConfirmationURL(mpsConfigs.getConfirmationURL())
+                .ValidationURL(mpsConfigs.getValidationURL())
+                .build();
 
         HttpHeaders headers = getHttpHeaders();
 
@@ -184,6 +189,49 @@ public class HttpServiceImpl implements HttpService {
         }
 
         return response.getBody();
+    }
+
+    @Override
+    public Object performB2CTransaction(B2CTransactionRequest b2CTransactionRequest) {
+
+        B2CRequest b2CRequest = B2CRequest.builder()
+                .mInitiatorName(mpsConfigs.getB2cInitiatorName())
+                .mSecurityCredential(HelperUtil.getB2CSecurityCredential(mpsConfigs.getB2cInitiatorPassword()))
+                .mCommandID(b2CTransactionRequest.getMCommandID())
+                .mAmount(b2CTransactionRequest.getMAmount())
+                .mPartyA(mpsConfigs.getShortCode())
+                .mPartyB(b2CTransactionRequest.getMPartyB())
+                .mRemarks(b2CTransactionRequest.getMRemarks())
+                .mQueueTimeOutURL(mpsConfigs.getB2cQueueTimeOutURL())
+                .mResultURL(mpsConfigs.getB2cResultURL())
+                .mOccassion(b2CTransactionRequest.getMOccassion())
+                .build();
+
+        HttpEntity request = new HttpEntity(b2CRequest, getHttpHeaders());
+        ResponseEntity<Object> response;
+
+        try {
+            LOGGER.info(new ObjectMapper().writeValueAsString(request.getBody()));
+            response = restTemplate.postForEntity(
+                    mpsConfigs.getB2cTransactionURL(),
+                    request,
+                    Object.class
+            );
+        } catch (RestClientException | JsonProcessingException e) {
+            //Custom error response
+            e.printStackTrace();
+            response = new ResponseEntity<>(
+                    e.getMessage(),
+                    HttpStatus.UNAUTHORIZED);
+        }
+
+        //Check for unauthorised
+        if (response.getStatusCode().is4xxClientError()) {
+            LOGGER.info("FAILED To process the StkPush");
+        }
+
+        return response.getBody();
+
     }
 
     private HttpHeaders getHttpHeaders() {
