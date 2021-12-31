@@ -1,22 +1,26 @@
 package com.transsaction.mpesa.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
-public class C2BSimulateTransaction {
+@Builder
+public class C2BSimulateTransactionRequest {
     @JsonProperty("ShortCode")
-    private String ShortCode = "600998";
+    private String ShortCode;
 
     @JsonProperty("CommandID")
-    private String CommandID = "CustomerBuyGoodsOnline";
+    private String CommandID;
 
     @JsonProperty("Amount")
-    private String Amount = "100";
+    private String Amount;
 
     @JsonProperty("Msisdn")
-    private String Msisdn = "254708374149";
+    private String Msisdn;
 
     @JsonProperty("BillRefNumber")
-    private String BillRefNumber = "254708374149";
+    private String BillRefNumber;
+
+
 }
