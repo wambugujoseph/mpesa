@@ -1,12 +1,14 @@
 package com.transsaction.mpesa.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.context.annotation.PropertySource;
 
 
 
 @Data
+@Builder
 public class StkPushRequest {
 
     @JsonProperty("AccountReference")

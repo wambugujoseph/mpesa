@@ -14,6 +14,12 @@ import java.util.Date;
 @Slf4j
 public class HelperUtil {
 
+    public static String getAuthKey(String consumerKey, String consumerSecret) {
+        String auth_key = consumerKey +":"+consumerSecret;
+        //Encode to Base64
+        return toBase64String(auth_key);
+    }
+
     public static String toBase64String(String value){
         byte[] bytes = value.getBytes(StandardCharsets.ISO_8859_1);
         return Base64.getEncoder().encodeToString(bytes);

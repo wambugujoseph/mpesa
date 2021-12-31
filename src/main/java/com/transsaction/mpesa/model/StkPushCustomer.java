@@ -1,10 +1,6 @@
 package com.transsaction.mpesa.model;
 
-import lombok.Data;
 
-@Data
-public class StkPushCustomer {
+public class StkPushCustomer extends Customer{
 
-    private String phoneNumber;
-    private String amount;
 }
