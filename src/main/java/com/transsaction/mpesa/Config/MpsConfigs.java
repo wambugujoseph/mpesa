@@ -43,5 +43,4 @@ public class MpsConfigs {
     @Value("${b2cInitiatorPassword}")
     private String b2cInitiatorPassword;
 
-
 }

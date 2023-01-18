@@ -3,6 +3,7 @@ package com.transsaction.mpesa.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.transsaction.mpesa.model.*;
+import com.transsaction.mpesa.service.AppCache;
 import com.transsaction.mpesa.service.HttpService;
 import com.transsaction.mpesa.util.HelperUtil;
 import lombok.SneakyThrows;
@@ -18,9 +19,15 @@ public class MainEntryController {
 
     @Autowired
     private HttpService httpService;
+    @Autowired
+    private AppCache appCache;
+
+
 
     @GetMapping(value = "/")
     public String testApp() {
+        appCache.evictFromCache("test1");
+        appCache.addToCache("test1", "Test pass");
         return "Index App";
     }
 
@@ -65,13 +72,13 @@ public class MainEntryController {
         return httpService.regC2BConfirmationValidationURl();
     }
 
-    @RequestMapping(value = "simulate_c2b", method=RequestMethod.POST)
+    @RequestMapping(value = "/simulate_c2b", method=RequestMethod.POST)
     public Object simulateC2BTransaction(@RequestBody C2BCustomer customer) {
         return httpService.simulateC2BTransaction(customer);
     }
 
     @SneakyThrows
-    @RequestMapping(value = "/stk/confirm")
+    @RequestMapping(value = "/ss/confirm")
     public Object getStkPush(@RequestBody StkPushResponse data) {
         log.info("========++++++ StkPushCallBack Processed");
         log.info("Callback Data: " + HelperUtil.getObjectToJsonString(data));

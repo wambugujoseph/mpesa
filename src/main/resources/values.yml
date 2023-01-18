@@ -1,6 +1,8 @@
 # consumer auth keys
-consumer_key: GwB18ZrfBL9vPoJah3e0QAQ4i8rVnkI0
-consumer_secret: ekx8vIKIJ4EhAN1E
+#consumer_key: GwB18ZrfBL9vPoJah3e0QAQ4i8rVnkI0
+consumer_key: AHttdtyAgI2kDkXQCAznpTMWsl2VUK6I
+#consumer_secret: ekx8vIKIJ4EhAN1E
+consumer_secret: bjGhaqHO8GK7kBRC
 
 #______________M-Pesa URLS_______________
 authorization_url: https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials
@@ -11,16 +13,16 @@ stkPushRequestUrl: https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processreque
 b2cTransactionURL: https://sandbox.safaricom.co.ke/mpesa/b2c/v1/paymentrequest
 
 #__________Custom App URLs__________________
-stkPushRequestCallBackUrl: https://4ac3-41-72-204-70.ngrok.io/stk/confirm
-confirmationURL: https://4ac3-41-72-204-70.ngrok.io/confirmation
-validationURL: https://4ac3-41-72-204-70.ngrok.io/validation
-b2cQueueTimeOutURL: https://4ac3-41-72-204-70.ngrok.io/transaction_queue_timeout
-b2cResultURL: https://4ac3-41-72-204-70.ngrok.io/b2c_transaction_result
+stkPushRequestCallBackUrl: https://7993-41-72-204-70.ngrok.io/ss/confirm
+confirmationURL: https://7993-41-72-204-70.ngrok.io/confirmation
+validationURL: https://7993-41-72-204-70.ngrok.io/validation
+b2cQueueTimeOutURL: https://7993-41-72-204-70.ngrok.io/transaction_queue_timeout
+b2cResultURL: https://7993-41-72-204-70.ngrok.io/b2c_transaction_result
 
 #__________ Keys and Short Codes____________
 stkPassKey: bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919
 stkPushShortCode: 174379
-shortCode: 600980
+shortCode: 4018597
 responseType: Completed
 
 b2cInitiatorName: testapi
